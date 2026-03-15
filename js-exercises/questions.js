@@ -26,17 +26,17 @@
  * @param {number[]} numbers - The array of numbers to filter.
  * @return {number[]} A new array containing only non-negative numbers.
  */
-function filterNegativeNumbers(numbers) {
-  const filteredNumbers = [...numbers];
-  for (let i = filteredNumbers.length - 1; i >= 0; i--) {
-    if (filteredNumbers[i] < 0) {
-      filteredNumbers.splice(i, 1);
-    }
-  }
-  return filteredNumbers
-}
-// Test function output
-console.log(filterNegativeNumbers([1, 2, -5, 7, -16, 23]))
+// function filterNegativeNumbers(numbers) {
+//   const filteredNumbers = [...numbers];
+//   for (let i = filteredNumbers.length - 1; i >= 0; i--) {
+//     if (filteredNumbers[i] < 0) {
+//       filteredNumbers.splice(i, 1);
+//     }
+//   }
+//   return filteredNumbers
+// }
+// // Test function output
+// console.log(filterNegativeNumbers([1, 2, -5, 7, -16, 23]))
 
 //Easier way with .filter()
 function filterNegativeNumbers(numbers) {
@@ -61,14 +61,14 @@ console.log(myFilteredArray);
  * @param {number[]} numbers - An array of numbers to be processed.
  * @return {number[]} A new array containing the numbers divisible by three doubled.
  */
-function doubleDivisibleByThree(numbers) {
-  const doubledThreesArray = numbers.filter(num => num % 3 == 0);
-  for (let i = 0; i < doubledThreesArray.length; i++) {
-    doubledThreesArray[i] *= 2
-  }
-  return doubledThreesArray
-}
-console.log(doubleDivisibleByThree([1, 3, 5, 6, 7, 9, 10]))
+// function doubleDivisibleByThree(numbers) {
+//   const doubledThreesArray = numbers.filter(num => num % 3 == 0);
+//   for (let i = 0; i < doubledThreesArray.length; i++) {
+//     doubledThreesArray[i] *= 2
+//   }
+//   return doubledThreesArray
+// }
+// console.log(doubleDivisibleByThree([1, 3, 5, 6, 7, 9, 10]))
 
 // Easier way using .map()
 function doubleDivisibleByThree(numbers) {
