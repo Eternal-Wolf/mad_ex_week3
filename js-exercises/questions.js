@@ -27,8 +27,24 @@
  * @return {number[]} A new array containing only non-negative numbers.
  */
 function filterNegativeNumbers(numbers) {
-  // Your implementation here
+  const filteredNumbers = [...numbers];
+  for (let i = filteredNumbers.length - 1; i >= 0; i--) {
+    if (filteredNumbers[i] < 0) {
+      filteredNumbers.splice(i, 1);
+    }
+  }
+  return filteredNumbers
 }
+// Test function output
+console.log(filterNegativeNumbers([1, 2, -5, 7, -16, 23]))
+
+//Easier way with .filter()
+function filterNegativeNumbers(numbers) {
+  return numbers.filter(num => num >= 0);
+}
+// Capture returned array into new array then print
+const myFilteredArray = filterNegativeNumbers([1, 3, -5, 7, -12, 23]);
+console.log(myFilteredArray);
 
 /**
  * Exercise 2: Doubling Numbers Divisible by Three
@@ -46,8 +62,22 @@ function filterNegativeNumbers(numbers) {
  * @return {number[]} A new array containing the numbers divisible by three doubled.
  */
 function doubleDivisibleByThree(numbers) {
-  // Your implementation here
+  const doubledThreesArray = numbers.filter(num => num % 3 == 0);
+  for (let i = 0; i < doubledThreesArray.length; i++) {
+    doubledThreesArray[i] *= 2
+  }
+  return doubledThreesArray
 }
+console.log(doubleDivisibleByThree([1, 3, 5, 6, 7, 9, 10]))
+
+// Easier way using .map()
+function doubleDivisibleByThree(numbers) {
+  return numbers
+    .filter(num => num % 3 == 0)
+    .map(num => num * 2);
+}
+// const newArray = [1, 3, 5, 6, 7, 9, 10];
+console.log(doubleDivisibleByThree([1, 3, 5, 6, 7, 9, 10])) // (newArray)
 
 /**
  * Exercise 3: Selecting High-Performing Students with a Specific Hobby
@@ -75,9 +105,35 @@ function doubleDivisibleByThree(numbers) {
  * @return {Object[]} An array of objects containing the name and email of qualifying students, sorted by name.
  */
 function selectHighPerformingStudents(students) {
-  // Your implementation here
+  return students
+    .filter(student => student.GPA >= 5 && student.hobbies.includes("coding"))
+    .map(student => ({ name: student.name, email: student.email }))
+    .sort((a, b) => a.name.localeCompare(b.name))
 }
-
+const students = [
+  {
+    id: 1,
+    name: "Gracie",
+    email: "blowmoney@gmail.com",
+    GPA: 7,
+    hobbies: ["coding", "dancing", "acting", "tennis"],
+  },
+  {
+    id: 2,
+    name: "Jeremy",
+    email: "jerbear@gmail.com",
+    GPA: 7,
+    hobbies: ["coding", "gaming", "skating", "golf", "cycling"]
+  },
+  {
+    id: 3,
+    name: "Reggie",
+    email: "sirbitesashitload@gmail.com",
+    GPA: 3,
+    hobbies: ["biting", "zoomies", "cuddling", "sleeping", "coding"]
+  }
+];
+// console.log(selectHighPerformingStudents(students))
 /**
  * Exercise 4: Aggregating Student Data with `reduce()`
  *
@@ -102,9 +158,31 @@ function selectHighPerformingStudents(students) {
  * @param {Object[]} students - An array of student objects.
  * @return {Object} An object containing aggregated student data.
  */
+
 function aggregateStudentData(students) {
-  // Your implementation here
+  const result = students.reduce((acc, student) => {
+    acc.studentNum++;
+    acc.totalGPA += student.GPA;
+    if (student.hobbies.includes("coding")) {
+      acc.codingStudentNum++;
+      acc.codingTotalGPA += student.GPA;
+    }
+    return acc;
+  }, {
+    studentNum: 0,
+    totalGPA: 0,
+    codingStudentNum: 0,
+    codingTotalGPA: 0
+  });
+  return {
+    studentNum: result.studentNum,
+    studentAvgGPA: parseFloat((result.totalGPA / result.studentNum).toFixed(2)),
+    codingStudentNum: result.codingStudentNum,
+    codingStudentGPA: result.codingStudentNum > 0 ? parseFloat((result.codingTotalGPA / result.codingStudentNum).toFixed(2)) : 0
+  };
 }
+
+console.log(aggregateStudentData(students))
 
 /**
  * Exercise 5: Swapping Between Sentence and CamelCase Forms
@@ -126,8 +204,18 @@ function aggregateStudentData(students) {
  * @return {string} The converted string, either in camelCase or sentence form.
  */
 function swapForm(input) {
-  // Your implementation here
+  if (input.includes(" ")) {
+    const words = input.split(" ");
+    return words[0] + words.slice(1).map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)).join("");
+  } else {
+    return input.replace(/([A-Z])/g, " $1").toLowerCase().trim();
+  }
 }
+input1 = "open a bank account"
+input2 = "openABankAccount"
+console.log(swapForm(input1))
+console.log(swapForm(input2))
 
 // Export the function for testing with Jest
 module.exports = {
